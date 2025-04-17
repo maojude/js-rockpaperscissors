@@ -3,9 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body> 
+    <p id="title">Rock Paper Scissors</p>
+    <ul>
+        <li>
+            <button id="rock">Rock</button>
+        </li>
+        <li>
+            <button id="paper">Paper</button>
+        </li>
+        <li>
+            <button id="scissors">Scissors</button>
+        </li>
+    </ul>
+
+    <h1 id="result"></h1>
+
+
     <script>
         function getComputerChoice(){
 
@@ -22,16 +39,22 @@
             }
         }
 
-        //function that prompts user their choice
-        function getHumanChoice(){
-            return prompt("Please enter your choice: rock, paper, or scissors").toLowerCase();
-        }
+        //listens to user choice
+        let btnChoice = document.querySelectorAll("button");
+
+        const result = document.querySelector("#result");
+        
+        btnChoice.forEach((button) => {
+            button.addEventListener("click", () => {
+                playRound(button.id);
+            });
+        });
 
         let humanScore = 0;
         let computerScore = 0;
 
-        function playRound(){
-            let humanChoice = getHumanChoice().toLowerCase();
+        function playRound(humanChoice){
+            console.log(humanChoice);
             let computerChoice = getComputerChoice();
             let isWinner = false;
             let isLoser = false;
@@ -55,30 +78,16 @@
             
             if(isWinner){
                 humanScore++;
-                console.log("You win! " + humanChoice + " beats " + computerChoice);
+                result.textContent = ("You win! " + humanChoice + " beats " + computerChoice);
             }else if (isLoser){
                 computerScore++;
-                console.log("You lose! " + computerChoice + " beats " + humanChoice);
+                result.textContent = ("You lose! " + computerChoice + " beats " + humanChoice);
             } else {
-                console.log("It's a tie! " + humanChoice + " is the same as " + computerChoice);
+                result.textContent = ("It's a tie! " + humanChoice + " is the same as " + computerChoice);
             }
         }
 
-        function playGame(){
-            for(let i = 0; i < 5; i++){
-                console.log("Round " + (i + 1) + ": ");
-                playRound();
-            }
 
-            if(humanScore > computerScore) console.log("\nYou win the game!");
-            else if(humanScore < computerScore) console.log("\nYou lose the game!");
-            else console.log("\nIt's a tie game!");
-
-            console.log("Final Score: You " + humanScore + " - " + computerScore + " Computer");
-
-        }
-
-        playGame();
     </script>
 </body>
 </html>
